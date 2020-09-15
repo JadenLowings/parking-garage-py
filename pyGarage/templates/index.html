@@ -1,0 +1,48 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="shortcut icon" class="icon" href="{{ url_for('static', filename='favicon.png') }}" type="image/x-icon">
+    
+    <title>The Garage</title>
+</head>
+<body>
+
+    <nav>
+        <ul class="nav-links">
+            <li><a href="https://github.com/JadenLowings/parking-garage-py">GitHub</a></li>
+        </ul>
+    </nav>
+    
+    <main>
+        <section class="main-control">
+            <form action="/api/201" method="POST">
+                <button name="add" type="submit">Add Car</button>
+            </form>
+            
+            <form action="/api/204" method="POST">
+                <button name="rem" type="submit">Remove Car</button>
+            </form>
+            
+            <form action="/api/201p" method="POST">
+                <input name="amount" type="text" placeholder="1.5">
+                <button name="add" type="submit">Change Price</button>
+            </form>
+        </section>
+        <section class="main-canvas">
+
+        </section>
+        <section class="main-info">
+
+            <p>Amount of vehicles {{ vhCount }}</p>
+            <p>parking price: R{{ amount }}</p>
+
+            <p>{{ toUpdate }}</p>
+
+        </section>
+    </main>
+
+</body>
+</html>
