@@ -95,5 +95,5 @@ def remVehicle():
         return render_template('index.html', toUpdate=toSend, vhCount=vehicleNum, amount=parkingPrice)
     return redirect('/?api/204')
 
-if __name__ == "__main__":
-    app.run(debug=True)
+# if __name__ == "__main__":
+#     app.run(debug=True)
