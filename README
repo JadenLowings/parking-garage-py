@@ -1,0 +1,33 @@
+######################################
+# How to start                       #
+#                                    #
+# DIR = pygarage/                    #
+#                                    #
+# In terminal use command            #
+# '$ python wsgi.py'                 #
+######################################
+
+DB = mongoDB Atlas
+Framework = Flask
+
+Dependencies are shown in requirements.txt
+To setup env run command '$ pip install -r requirements.txt'
+
+Pipfile and Pipfile.lock were requirements to use the app on
+heroku's platform.
+
+Timeline:
+
+    * Porting the project to work as a web based application. (2 Days)
+    * Combining through code to improve performance. (1 Day)
+
+Where I struggled:
+
+    * Understanding how the Framework handled requests.
+    * Figuring out how Python could display variables in HTML through Django
+    * Attempting to put the app on Heroku.
+
+What I enjoyed:
+
+    * Mongo's ability to create tables on input from the application.
+    * Connecting the app to mongo and displaying it through HTML and Django.

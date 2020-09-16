@@ -1,4 +1,3 @@
-from random import seed
 from random import randint
 
 import re
@@ -18,7 +17,6 @@ def getNumPlate():
         numList.append(value)
 
     numList.append('GP')
-
     numberPlate = ' '.join([str(elem) for elem in numList])
 
     return numberPlate

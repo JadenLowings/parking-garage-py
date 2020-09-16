@@ -19,7 +19,7 @@
     <main>
         <section class="main-control">
             <form action="/api/201" method="POST">
-                <button name="add" type="submit">Add Car</button>
+                <button name="add" type="submit" onload="addMore()">Add Car</button>
             </form>
             
             <form action="/api/204" method="POST">
@@ -27,16 +27,18 @@
             </form>
             
             <form action="/api/201p" method="POST">
-                <input name="amount" type="text" placeholder="1.5">
+                <input name="amount" type="text" placeholder="1.50">
                 <button name="add" type="submit">Change Price</button>
             </form>
         </section>
         <section class="main-canvas">
-
+            <canvas id="Canvas" class="canvas">
+                <h1>hello</h1>
+            </canvas>
         </section>
         <section class="main-info">
 
-            <p>Amount of vehicles {{ vhCount }}</p>
+            <p id="vehicleNum">Amount of vehicles {{ vhCount }}</p>
             <p>parking price: R{{ amount }}</p>
 
             <p>{{ toUpdate }}</p>
@@ -45,4 +47,28 @@
     </main>
 
 </body>
+<script>
+var myCanvas = document.getElementById("Canvas");
+
+window.onload = function addMore() {
+    var vehicleNum = '{{ vhCount }}';
+    var lft = 10;
+    var top = 5;
+    var hgt = 20;
+    var wth = 20;
+
+    for (var i=0; i < vehicleNum; i++) {
+        var context = myCanvas.getContext('2d');
+        
+        context.fillRect(lft, top, hgt, wth);
+        lft += 25;
+        if (lft == 285) {
+            top += 25;
+            lft = 10;
+        }
+
+        console.log('made it');
+    }
+}
+</script>
 </html>

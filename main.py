@@ -1,10 +1,13 @@
 from flask import Flask, render_template, redirect, url_for, request
 from flask_pymongo import PyMongo
 
-from functions.getNumberPlate import getNumPlate, random_with_N_digits
-from functions.timeFunc import getTime
+from getNumberPlate import getNumPlate, random_with_N_digits
+from timeFunc import getTime
 from theBank import canPay
 
+import os
+
+# template_dir = os.path.abspath('../templates')
 app = Flask(__name__)
 app.config['MONGO_URI'] = MONGO_URI = 'mongodb+srv://dbUser:3lq8Df5UK2SWOacN@cluster0.dght0.gcp.mongodb.net/cluster0?retryWrites=true&w=majority'
 
@@ -80,12 +83,13 @@ def remVehicle():
         timeIn = query['Time Stamp']
         payMin = priceMin['value']
 
-        ispayable = canPay(amountHave, timeIn, payMin)
+        (ispayable, amount) = canPay(amountHave, timeIn, payMin)
+        amount = str(amount)
 
     if ispayable == True:
         vehicleCollection.delete_one(query)   
         vehicleNum = vehicleCollection.estimated_document_count()
-        toSend = '(' + licensePlate + ')' + ' was allowed to leave.'
+        toSend = '(' + licensePlate + ')' + ' was allowed to leave.' + '\n' + 'After paying: R' + amount
         
         return render_template('index.html', toUpdate=toSend, vhCount=vehicleNum, amount=parkingPrice)
 
@@ -93,7 +97,5 @@ def remVehicle():
         toSend = '(' + licensePlate + ')' + ' was not allowed to leave.'
         
         return render_template('index.html', toUpdate=toSend, vhCount=vehicleNum, amount=parkingPrice)
+    
     return redirect('/?api/204')
-
-# if __name__ == "__main__":
-#     app.run(debug=True)
