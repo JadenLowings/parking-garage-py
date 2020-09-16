@@ -7,7 +7,6 @@ from theBank import canPay
 
 import os
 
-# template_dir = os.path.abspath('../templates')
 app = Flask(__name__)
 app.config['MONGO_URI'] = MONGO_URI = 'mongodb+srv://dbUser:3lq8Df5UK2SWOacN@cluster0.dght0.gcp.mongodb.net/cluster0?retryWrites=true&w=majority'
 
@@ -86,16 +85,16 @@ def remVehicle():
         (ispayable, amount) = canPay(amountHave, timeIn, payMin)
         amount = str(amount)
 
-    if ispayable == True:
-        vehicleCollection.delete_one(query)   
-        vehicleNum = vehicleCollection.estimated_document_count()
-        toSend = '(' + licensePlate + ')' + ' was allowed to leave.' + '\n' + 'After paying: R' + amount
-        
-        return render_template('index.html', toUpdate=toSend, vhCount=vehicleNum, amount=parkingPrice)
+        if ispayable == True:
+            vehicleCollection.delete_one(query)   
+            vehicleNum = vehicleCollection.estimated_document_count()
+            toSend = '(' + licensePlate + ')' + ' was allowed to leave.' + '\n' + 'After paying: R' + amount
+            
+            return render_template('index.html', toUpdate=toSend, vhCount=vehicleNum, amount=parkingPrice)
 
-    if ispayable == False:
-        toSend = '(' + licensePlate + ')' + ' was not allowed to leave.'
+        if ispayable == False:
+            toSend = '(' + licensePlate + ')' + ' was not allowed to leave.'
+            
+            return render_template('index.html', toUpdate=toSend, vhCount=vehicleNum, amount=parkingPrice)
         
-        return render_template('index.html', toUpdate=toSend, vhCount=vehicleNum, amount=parkingPrice)
-    
     return redirect('/?api/204')
